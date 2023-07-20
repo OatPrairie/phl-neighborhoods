@@ -7,18 +7,18 @@ def get_census_block_data(tract: str = '*', block: str = '*') -> list:
     """
     Get block data from Census API with headers while removing unpopulated blocks
     """
-    year= '2020'
-    dsource= 'dec' # the survey i.e. decennial census, acs, etc
-    dseries= 'dhc' # a dataset within the survey
-    state= '42' # PA
+    year = '2020'
+    dsource = 'dec' # the survey i.e. decennial census, acs, etc
+    dseries = 'dhc' # a dataset within the survey
+    state = '42' # PA
     county = '101' # Philadelphia
 
     # Variables from https://api.census.gov/data/2020/dec/dhc/variables.json
-    request_columns = COLUMN_MAPPING.keys()
+    cols = ",".join(COLUMN_MAPPING.keys())
 
     base_url = f'https://api.census.gov/data/{year}/{dsource}/{dseries}'
     data_url = (
-        f'{base_url}?get={",".join(request_columns)}&for=block:{block}&in=state:{state}&in=county:{county}'
+        f'{base_url}?get={cols}&for=block:{block}&in=state:{state}&in=county:{county}'
         f'&in=tract:{tract}'
     )
     resp = requests.get(data_url)
