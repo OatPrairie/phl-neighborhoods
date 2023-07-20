@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <a href="{{ url_for('home') }}">Back</a>
+    <body>
+        <h5>
+            This data is static and shouldn't change, but it was last retrieved on {{ last_modified_on }}.
+            Don't believe it? Here's a <a href="{{ url_for('neighborhoods_bp.refresh_census_block_data') }}">refresh</a>
+            button!
+        </h5>
+        <h1>This is also a work in progress. Hopefully there will be more info soon.</h1> 
+        <h2>Here's what would be cool:</h2> 
+        <ul>
+            <li>Age demographics</li>
+            <li>Sorting/filtering</li>
+            <li>A map (sounds like a lot of work)</li>
+          </ul> 
+        {% for neighborhood in neighborhoods %}
+            <h3>{{ neighborhood.name }} </h2>
+            <h5>Population: {{ neighborhood.total_population }}</h5>
+            <h5>Median age: {{ neighborhood.mean_of_median_age }}</h5>
+            <h5>Adult population: {{ neighborhood.adult_population_total }} ({{ neighborhood.adult_percentage }}%)</h5>
+            <ul>
+                <li>Latino: {{ neighborhood.adult_population_latino }} ({{ neighborhood.adult_percentage_latino }}%)</li>
+                <li>White: {{ neighborhood.adult_population_white }} ({{ neighborhood.adult_percentage_white }}%)</li>
+                <li>Black: {{ neighborhood.adult_population_black }} ({{ neighborhood.adult_percentage_black }}%)</li>
+                <li>Asian: {{ neighborhood.adult_population_asian }} ({{ neighborhood.adult_percentage_asian }}%)</li>
+            </ul>
+
+            {% endfor %}
+    </body>
+</html>
